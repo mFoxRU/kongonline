@@ -10,10 +10,12 @@ db_file = 'kongonline.sqlite'
 
 def main():
     while 1:
-        online, games = check()
         timestamp = int(time())
-        write_data(timestamp, online, games, db_file)
-        sleep(5)
+        online, games = check()
+        if online is not None:
+            write_data(timestamp, online, games, db_file)
+            print timestamp, online, games
+        sleep(100)
 
 if __name__ == '__main__':
     main()
