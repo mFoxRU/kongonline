@@ -1,4 +1,4 @@
 kongonline
 ==========
 
-Porting simple statistics gathering tool
+Simple statistics gathering tool
