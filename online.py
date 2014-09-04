@@ -8,13 +8,17 @@ from saver import write_data
 db_file = 'kongonline.sqlite'
 
 
+def routine():
+    timestamp = int(time())
+    online, games = check()
+    if online is not None:
+        write_data(timestamp, online, games, db_file)
+        print timestamp, online, games
+
+
 def main():
     while 1:
-        timestamp = int(time())
-        online, games = check()
-        if online is not None:
-            write_data(timestamp, online, games, db_file)
-            print timestamp, online, games
+        routine()
         sleep(100)
 
 if __name__ == '__main__':
