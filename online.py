@@ -2,8 +2,8 @@ __author__ = 'mFoxRU'
 
 from time import sleep, time
 
-from checker import check
-from saver import write_data
+from kongonline.checker import check
+from kongonline.saver import write_data
 
 db_file = 'kongonline.sqlite'
 
