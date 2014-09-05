@@ -13,12 +13,13 @@ def routine():
     online, games = check()
     if online is not None:
         write_data(timestamp, online, games, db_file)
-        print timestamp, online, games
+        return timestamp, online, games
+    return None
 
 
 def main():
     while 1:
-        routine()
+        print routine()
         sleep(100)
 
 if __name__ == '__main__':
