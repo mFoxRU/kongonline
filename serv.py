@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def last_stats():
-    return 'Kongonline is up and running'
+    return 'Kongonline is up and running...'
 
 
 if __name__ == "__main__":
@@ -18,4 +18,4 @@ if __name__ == "__main__":
     cron.add_job(routine, 'interval', seconds=100, max_instances=1)
     cron.start()
 
-    app.run(debug=False) # apscheduler triggers twice if debug is on
+    app.run(debug=True, use_reloader=False)
