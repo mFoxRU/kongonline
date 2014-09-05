@@ -9,10 +9,12 @@ app = Flask(__name__)
 cron = BackgroundScheduler()
 
 
-@app.before_first_request
 def initialize():
-    cron.add_job(routine, 'interval', seconds=100, max_instances=1)
-    cron.start()
+    import os
+    # Defence against apscheduler double start in Flask debug mode
+    if os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
+        cron.add_job(routine, 'interval', seconds=100, max_instances=1)
+        cron.start()
 
 
 @app.route("/")
@@ -21,4 +23,5 @@ def last_stats():
 
 
 if __name__ == "__main__":
+    initialize()
     app.run(debug=True)
