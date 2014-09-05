@@ -6,6 +6,13 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from online import routine
 
 app = Flask(__name__)
+cron = BackgroundScheduler()
+
+
+@app.before_first_request
+def initialize():
+    cron.add_job(routine, 'interval', seconds=100, max_instances=1)
+    cron.start()
 
 
 @app.route("/")
@@ -14,8 +21,4 @@ def last_stats():
 
 
 if __name__ == "__main__":
-    cron = BackgroundScheduler()
-    cron.add_job(routine, 'interval', seconds=100, max_instances=1)
-    cron.start()
-
-    app.run(debug=True, use_reloader=False)
+    app.run(debug=True)
