@@ -29,4 +29,8 @@ def get_last(num=10):
         ret.append((time, item.online, item.games))
     return ret
 
+
+def count_entries():
+    return Stats.select().count()
+
 database.create_tables((Stats,), safe=True)

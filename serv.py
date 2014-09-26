@@ -4,7 +4,7 @@ from flask import Flask
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime as dt
 
-from online import routine, get_last
+from online import routine, get_last, count_entries
 
 app = Flask(__name__)
 cron = BackgroundScheduler()
@@ -27,7 +27,7 @@ def status():
 @app.route("/last/")
 @app.route("/last/<int:num>")
 def last(num=10):
-    data = []
+    data = ['Showing {0} of {1} entries'.format(num, count_entries())]
     for entry in get_last(num):
         data.append('[{0}] Games: {1}, Online: {2}'.format(*entry))
     reply = '<br>'.join(data)
