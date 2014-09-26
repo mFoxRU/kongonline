@@ -27,7 +27,9 @@ def status():
 @app.route("/last/")
 @app.route("/last/<int:num>")
 def last(num=10):
-    data = ['Showing {0} of {1} entries'.format(num, count_entries())]
+    total_entries = count_entries()
+    num = min(num, total_entries)
+    data = ['Showing {0} of {1} entries'.format(num, total_entries)]
     for entry in get_last(num):
         data.append('[{0}] Games: {1}, Online: {2}'.format(*entry))
     reply = '<br>'.join(data)
