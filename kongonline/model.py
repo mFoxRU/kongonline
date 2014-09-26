@@ -1,8 +1,10 @@
 __author__ = 'mFoxRU'
 
-from peewee import SqliteDatabase, Model, Proxy, IntegerField
+from datetime import datetime as dt
 
-database = SqliteDatabase('kongonline.sqlite')
+from peewee import SqliteDatabase, Model, IntegerField
+
+database = SqliteDatabase('kongonline.sqlite', check_same_thread=False)
 database.connect()
 
 
@@ -19,5 +21,12 @@ class Stats(Model):
 def write_info(time, online, games):
     Stats.create(time_t=time, online=online, games=games)
 
+
+def get_last(num=10):
+    ret = []
+    for item in Stats.select().order_by(Stats.time_t.desc()).limit(num):
+        time = dt.fromtimestamp(item.time_t).strftime('%y-%m-%d|%H:%M:%S')
+        ret.append((time, item.online, item.games))
+    return ret
 
 database.create_tables((Stats,), safe=True)
