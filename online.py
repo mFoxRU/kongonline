@@ -3,16 +3,14 @@ __author__ = 'mFoxRU'
 from time import sleep, time
 
 from kongonline.checker import check
-from kongonline.saver import write_data
-
-db_file = 'kongonline.sqlite'
+from kongonline.model import *
 
 
 def routine():
     timestamp = int(time())
     online, games = check()
     if online is not None:
-        write_data(timestamp, online, games, db_file)
+        write_info(timestamp, online, games)
         return timestamp, online, games
     return None
 
