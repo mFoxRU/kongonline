@@ -24,10 +24,11 @@ def status():
     return 'Kongonline is up and running...'
 
 
-@app.route("/last")
-def last_10():
+@app.route("/last/")
+@app.route("/last/<int:num>")
+def last(num=10):
     data = []
-    for entry in get_last():
+    for entry in get_last(num):
         data.append('[{0}] Games: {1}, Online: {2}'.format(*entry))
     reply = '<br>'.join(data)
     return reply
