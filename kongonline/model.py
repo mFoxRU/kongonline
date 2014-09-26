@@ -1,8 +1,9 @@
 __author__ = 'mFoxRU'
 
-from peewee import SqliteDatabase, Model, IntegerField
+from peewee import SqliteDatabase, Model, Proxy, IntegerField
 
 database = SqliteDatabase('kongonline.sqlite')
+database.connect()
 
 
 class Stats(Model):
@@ -15,7 +16,8 @@ class Stats(Model):
         db_table = 'stats'
 
 
+def write_info(time, online, games):
+    Stats.create(time_t=time, online=online, games=games)
 
 
-
-
+database.create_tables((Stats,), safe=True)
